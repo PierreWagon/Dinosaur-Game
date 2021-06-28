@@ -42,7 +42,7 @@ document.body.addEventListener('keyup', e => {
 
 // Test collisions between block and player
 function collide() {
-    if ((block.getBoundingClientRect().left - player.getBoundingClientRect().left) <= 96 && block.getBoundingClientRect().bottom == player.getBoundingClientRect().bottom) {
+    if ((block.getBoundingClientRect().left - player.getBoundingClientRect().left) <= (96-16) && block.getBoundingClientRect().bottom == player.getBoundingClientRect().bottom) {
         console.log('PERDU');
         gameOver();
     }
@@ -63,3 +63,5 @@ function gameOver() {
     clearInterval(checkCollision);
     displayScore.innerHTML = score + "<br><br> Game Over !"
 }
+
+// TO DO NEXT : SPEED UP THE GAME OVER TIME
