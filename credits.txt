@@ -1,0 +1,9 @@
+--- Dinosaur sprite ---
+FILE NAME
+gaming_DinoSprites_walk.png
+
+OWNER
+John Park
+
+FOUND ON
+https://learn.adafruit.com/assets/75265
