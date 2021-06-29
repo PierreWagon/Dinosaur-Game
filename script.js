@@ -1,19 +1,23 @@
 const player = document.querySelector('.player');
 const block = document.querySelector('.block');
 const playBtn = document.querySelector('.btn');
+const background = document.querySelector('.game-area');
 const displayScore = document.getElementById('score');
 let score;
 var checkScore;
 var checkCollision;
+var varGameSpeed;
 
 // Begin the game
 playBtn.addEventListener('click', e => {
     playBtn.classList.add('play');
     player.classList.add('play');
     block.classList.add('play');
+    background.classList.add('play');
     checkCollision = setInterval(collide, 10);
     score = 0;
     checkScore = setInterval(addScore, 10);
+    checkGameSpeed = setInterval(gameSpeed, 10);
 })
 
 
@@ -24,17 +28,19 @@ function jump() {
     }
     setTimeout(function(){
         player.classList.remove('jump');
-    }, 600);
+    }, 450);
 }
 
 //By clicking
 document.body.addEventListener('click', e => {
-    jump();
+    if (player.classList.contains('play')) {
+        jump();
+    }
 })
 
 //By pressing spacebar
-document.body.addEventListener('keyup', e => {
-    if (e.code === "Space") {
+document.body.addEventListener('keypress', e => {
+    if (e.code === "Space" && player.classList.contains('play')){
         jump();
     }
 })
@@ -59,9 +65,24 @@ function gameOver() {
     playBtn.classList.remove('play');
     player.classList.remove('play');
     block.classList.remove('play');
+    background.classList.remove('play');
     clearInterval(checkScore);
     clearInterval(checkCollision);
+    clearInterval(checkGameSpeed);
+    block.style.animationPlayState = 'paused';
+    block.style.animation = "none";
     displayScore.innerHTML = score + "<br><br> Game Over !"
 }
 
-// TO DO NEXT : SPEED UP THE GAME OVER TIME
+// Speed up the game over time
+//(I wanted to speed up the walking animation but for some reason it would make the character unable to jump)
+function gameSpeed() {
+    let blockSpeed = 2 - (score / 10000);
+    //let animSpeed = 0.8 - (score / 15000);
+    if (blockSpeed > 0.6) {
+        block.style.animation = "move linear infinite " + blockSpeed + "s";
+        //console.log(blockSpeed);
+        //player.style.animation = "walk steps(6) infinite " + animSpeed + "s";
+    }
+
+}
