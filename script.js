@@ -165,7 +165,7 @@ dinoSkins.forEach(e => {
             case e.target.classList.contains('five'):
                 player.style.background = "url('sanic.png') 0px 0px no-repeat";
                 player.style.height = "134px";
-                background.style.background = "url('bg2.png')";
+                background.style.background = "url('bg_sanic.png')";
                 levelTheme = "sanic";
                 player.classList.remove('death');
                 break; 
