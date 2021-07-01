@@ -35,8 +35,7 @@ body {
 
 /* ----- Play button ----- */*
 
-.btn {
-    
+.btn {    
     text-align: center;
     border: black solid 2px;
     padding: 40px 0;
