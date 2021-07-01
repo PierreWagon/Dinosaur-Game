@@ -93,6 +93,19 @@ body {
     animation: jump 0.45s;
 }
 
+@keyframes death {
+    10% {
+        transform: rotate(90deg);
+    }
+    100% {
+        transform: rotate(90deg) translateX(-150px);
+    }
+}
+
+.player.death {
+    animation: death 2s linear forwards;
+}
+
 /* ----- Enemy block ----- */
 .block {
     width: 48px;
@@ -136,7 +149,7 @@ body {
     left: 50%;
     top: -300px;
     transform: translateX(-50%);
-    background-color: white;
+    background-color: rgb(240,240,240);
     border: 2px solid black;
     border-radius: 10px;
     padding: 30px;
@@ -156,7 +169,7 @@ body {
 }
 
 .skin-menu.active {
-    animation: skinMenuDown 0.6s linear forwards;
+    animation: skinMenuDown 0.4s linear forwards;
 }
 
 .skin-menu img {
@@ -165,4 +178,42 @@ body {
 
 .skin-menu img:hover {
     transform: scale(1.1);
+}
+
+/* Aquatic theme features */
+#breathe-bar {
+    display: none;
+    position: absolute;
+    background-color: blue;
+    border: 2px solid black;
+    width: 150px;
+    height: 20px;
+    top: 10px;
+    right: 10px;
+    animation: breathe 10s linear;
+}
+
+@keyframes breathe {
+    to {
+        transform: scaleX(0);
+    }
+}
+
+/* Message showing when player dies by drowning */
+#death-msg {
+    display: none;
+    position: absolute;
+    padding: 20px;
+    text-align: center;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+}
+
+#death-msg.death {
+    display: block;
 }
