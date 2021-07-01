@@ -13,8 +13,18 @@ let levelTheme;
 let deathTimer;
 let deathTimerGameOver;
 
-// Begin the game
+// Launch a new game with click or spacebar
 playBtn.addEventListener('click', e => {
+    newGame();
+})
+document.body.addEventListener('keypress', e => {
+    if (e.code === "Space" && !(playBtn.classList.contains('play'))){
+        newGame();
+    }
+})
+
+// Set up new game
+function newGame() {
     playBtn.classList.add('play');
     player.classList.add('play');
     block.classList.add('play');
@@ -41,7 +51,7 @@ playBtn.addEventListener('click', e => {
         player.classList.remove('death');
         document.getElementById('death-msg').classList.remove('death');
     }
-})
+}
 
 
 // Make the player jump
@@ -53,14 +63,12 @@ function jump() {
         player.classList.remove('jump');
     }, 450);
 }
-
 //By clicking
 document.body.addEventListener('click', e => {
     if (player.classList.contains('play')) {
         jump();
     }
 })
-
 //By pressing spacebar
 document.body.addEventListener('keypress', e => {
     if (e.code === "Space" && player.classList.contains('play')){
