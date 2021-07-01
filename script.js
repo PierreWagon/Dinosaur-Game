@@ -86,3 +86,43 @@ function gameSpeed() {
     }
 
 }
+
+// Let's try adding some skins
+// Open/close skin menu
+const skinBtn = document.getElementById('skin-btn');
+const skinMenu = document.querySelector('.skin-menu');
+skinBtn.addEventListener('click', e => {
+    skinMenu.classList.toggle('active');
+})
+
+// Choose a skin
+// It might be a cheesy way to do it, but each skin has a class number, so I'm just checking out this number
+// and displaying the matching skin
+const dinoSkins = document.querySelectorAll('.skin');
+dinoSkins.forEach(e => {
+    e.addEventListener('click', e => {     
+        switch( true ){
+            case e.target.classList.contains('one'):
+                player.style.background = "url('gaming_DinoSprites_walk_small.png') 0px 0px no-repeat";
+                player.style.height = "84px";
+                break;
+            case e.target.classList.contains('two'):
+                player.style.background = "url('dino_aristo.png') 0px 0px no-repeat";
+                player.style.height = "184px";
+                break;
+            case e.target.classList.contains('three'):
+                player.style.background = "url('dino_aquatique.png') 0px 0px no-repeat";
+                player.style.height = "184px";
+                break; 
+            case e.target.classList.contains('four'):
+                player.style.background = "url('dino_pirate.png') 0px 0px no-repeat";
+                player.style.height = "184px";
+                break; 
+            case e.target.classList.contains('five'):
+                player.style.background = "url('sanic.png') 0px 0px no-repeat";
+                player.style.height = "134px";
+                break; 
+        }
+        skinMenu.classList.remove('active');
+    })
+})
