@@ -3,21 +3,44 @@ const block = document.querySelector('.block');
 const playBtn = document.querySelector('.btn');
 const background = document.querySelector('.game-area');
 const displayScore = document.getElementById('score');
+const dinoSkins = document.querySelectorAll('.skin');
 let score;
 var checkScore;
 var checkCollision;
 var varGameSpeed;
+let levelTheme;
+//These two variables are used to manage the death by drowning
+let deathTimer;
+let deathTimerGameOver;
 
 // Begin the game
 playBtn.addEventListener('click', e => {
     playBtn.classList.add('play');
     player.classList.add('play');
     block.classList.add('play');
+    player.classList.remove('death');
+    document.getElementById('death-msg').classList.remove('death');
     background.classList.add('play');
     checkCollision = setInterval(collide, 10);
     score = 0;
     checkScore = setInterval(addScore, 10);
     checkGameSpeed = setInterval(gameSpeed, 10);
+    //Displays oxygen bar if you selected aquatic skin
+    if (levelTheme == "aqua") {
+        document.querySelector('#breathe-bar').style.display = 'block';
+        deathTimer = setTimeout( e => {
+            player.classList.add('death');
+        },10000)
+        deathTimerGameOver = setTimeout(e => {
+            gameOver();
+            document.getElementById('death-msg').classList.add('death');
+        }, 11000);
+    }
+    else {
+        document.querySelector('#breathe-bar').style.display = 'none';
+        player.classList.remove('death');
+        document.getElementById('death-msg').classList.remove('death');
+    }
 })
 
 
@@ -71,6 +94,9 @@ function gameOver() {
     clearInterval(checkGameSpeed);
     block.style.animationPlayState = 'paused';
     block.style.animation = "none";
+    document.querySelector('#breathe-bar').style.display = 'none';
+    clearTimeout(deathTimer);
+    clearTimeout(deathTimerGameOver);
     displayScore.innerHTML = score + "<br><br> Game Over !"
 }
 
@@ -98,29 +124,42 @@ skinBtn.addEventListener('click', e => {
 // Choose a skin
 // It might be a cheesy way to do it, but each skin has a class number, so I'm just checking out this number
 // and displaying the matching skin
-const dinoSkins = document.querySelectorAll('.skin');
 dinoSkins.forEach(e => {
     e.addEventListener('click', e => {     
         switch( true ){
             case e.target.classList.contains('one'):
                 player.style.background = "url('gaming_DinoSprites_walk_small.png') 0px 0px no-repeat";
                 player.style.height = "84px";
+                background.style.background = "url('bg2.png')";
+                levelTheme = "normal";
+                player.classList.remove('death');
                 break;
             case e.target.classList.contains('two'):
                 player.style.background = "url('dino_aristo.png') 0px 0px no-repeat";
                 player.style.height = "184px";
+                background.style.background = "url('bg2.png')";
+                levelTheme = "rich";
+                player.classList.remove('death');
                 break;
             case e.target.classList.contains('three'):
                 player.style.background = "url('dino_aquatique.png') 0px 0px no-repeat";
                 player.style.height = "184px";
+                background.style.background = "url('bg_water2.png')";
+                levelTheme = "aqua";
                 break; 
             case e.target.classList.contains('four'):
                 player.style.background = "url('dino_pirate.png') 0px 0px no-repeat";
                 player.style.height = "184px";
+                background.style.background = "url('bg2.png')";
+                levelTheme = "pirate";
+                player.classList.remove('death');
                 break; 
             case e.target.classList.contains('five'):
                 player.style.background = "url('sanic.png') 0px 0px no-repeat";
                 player.style.height = "134px";
+                background.style.background = "url('bg2.png')";
+                levelTheme = "sanic";
+                player.classList.remove('death');
                 break; 
         }
         skinMenu.classList.remove('active');
